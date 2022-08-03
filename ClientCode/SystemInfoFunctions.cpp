@@ -168,6 +168,7 @@ void DiskInfo(json& SystemInfo)
 
             SingleDrive += wcslen(SingleDrive) + 1;
         }
+        SystemInfo["Total_Num_Of_Drives"] = i;
     }
     else
     {
@@ -176,7 +177,7 @@ void DiskInfo(json& SystemInfo)
 
 
     //Extracting info of each disk/drive available on system
-
+    uint64_t TotalDiskSpace=0, TotalDiskFreeSpace=0;
     vector<wchar_t*>::iterator iter = All_Drives.begin();
 
     for (iter; iter != All_Drives.end(); iter++)
@@ -204,12 +205,16 @@ void DiskInfo(json& SystemInfo)
 
         //adding to json
 
-        SystemInfo["DiskInfo"][CurrentDriveName]["Total Space(in MB)"] = total / (1024 * 1024.0);
-        SystemInfo["DiskInfo"][CurrentDriveName]["Free Space(in MB)"] = free / (1024 * 1024.0);
+        SystemInfo["DiskInfo"][CurrentDriveName]["Total Space(in MB)"] = total / (1024 * 1024);
+        SystemInfo["DiskInfo"][CurrentDriveName]["Free Space(in MB)"] = free / (1024 * 1024);
 
+        TotalDiskSpace = TotalDiskSpace + ( total / ( 1024 * 1024 ) );
+        TotalDiskFreeSpace = TotalDiskFreeSpace + ( free / (1024 *1024 ) );
         //cout << to_string(freeCall / (1024 * 1024)) << endl;
 
     }
+    SystemInfo["TotalDiskSpace(in MB)"] = TotalDiskSpace;
+    SystemInfo["TotalDiskFreeSpace(in MB)"] = TotalDiskFreeSpace;
 }
 
 void SystemIdleTime(json& SystemInfo)
