@@ -1,0 +1,30 @@
+{
+    "Cpu_Usage(in%)": 26.923076629638672,
+    "Date and Time": "Wed Aug  3 23:40:14 2022\n",
+    "DiskInfo": {
+        "C:\\": {
+            "Free Space(in MB)": 66326.640625,
+            "Total Space(in MB)": 228327.99609375
+        },
+        "E:\\": {
+            "Free Space(in MB)": 72227.95703125,
+            "Total Space(in MB)": 499999.99609375
+        },
+        "F:\\": {
+            "Free Space(in MB)": 175433.64453125,
+            "Total Space(in MB)": 453851.99609375
+        },
+        "TotalDrives": [
+            "C:\\",
+            "E:\\",
+            "F:\\"
+        ]
+    },
+    "RamInfo": {
+        "Free(in KB)": 6154356,
+        "Total(in KB)": 16709092,
+        "Usage(in %)": 63
+    },
+    "System Idle Window(in sec)": 0,
+    "System Name": "DESKTOP-2J4M4QG"
+}
