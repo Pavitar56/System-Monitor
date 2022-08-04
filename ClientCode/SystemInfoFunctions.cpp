@@ -255,7 +255,7 @@ Json writer
 call this function only in main to produce json file with neccesaary details
 
 */
-void SystemInfo_JsonWriter(void)
+void SystemInfo_JsonWriter(string ClientName)
 {
     json SystemInfo;
 
@@ -267,7 +267,7 @@ void SystemInfo_JsonWriter(void)
 
     DiskInfo(SystemInfo);
     SystemIdleTime(SystemInfo);
-
+    SystemInfo["MachineName"] = ClientName;
 
     std::ofstream o("pretty.json");
     o << std::setw(4) << SystemInfo << std::endl;

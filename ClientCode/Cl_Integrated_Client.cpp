@@ -9,12 +9,12 @@ using namespace std;
 using json = nlohmann::json;
 
 
-void updater(SOCKET sock)
+void updater(SOCKET sock,string ClientName)
 {
 	string s = "";
 
 
-	SystemInfo_JsonWriter();
+	SystemInfo_JsonWriter(ClientName);
 	json client_info;				//json object
 	std::ifstream i("pretty.json");	//
 	i >> client_info;
@@ -140,7 +140,18 @@ int main()
 		*/
 		cout << ">";
 		getline(cin, userInput);
-		CallBackTimer Periodic(sock);
+		/*
+		int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
+		if (sendResult == SOCKET_ERROR)
+		{
+			cout << "Unable to send client name" << endl;
+			return 0;
+		}
+		*/
+
+		string temp = userInput;
+
+		CallBackTimer Periodic(sock, temp);
 		Periodic.start(20000, updater);
 		while (true);
 		/*while (true)

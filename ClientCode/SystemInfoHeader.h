@@ -28,7 +28,7 @@ __int64 CompareFileTime2(FILETIME, FILETIME);
 void GetCpuUsePercentage(json&);
 void DiskInfo(json&);
 void SystemIdleTime(json&);
-void SystemInfo_JsonWriter(void);
+void SystemInfo_JsonWriter(string);
 
 
 #include <functional>
@@ -41,10 +41,11 @@ void SystemInfo_JsonWriter(void);
 class CallBackTimer
 {
 public:
-    CallBackTimer(SOCKET s)
+    CallBackTimer(SOCKET s,string Name)
         :_execute(false)
     {
         sock = s;
+        ClientName = Name;
     }
 
     ~CallBackTimer() {
@@ -60,7 +61,7 @@ public:
             _thd.join();
     }
 
-    void start(int interval, std::function<void(SOCKET)> func)
+    void start(int interval, std::function<void(SOCKET,string)> func)
     {
         if (_execute.load(std::memory_order_acquire)) {
             stop();
@@ -69,7 +70,7 @@ public:
         _thd = std::thread([this, interval, func]()
             {
                 while (_execute.load(std::memory_order_acquire)) {
-                    func(sock);
+                    func(sock, ClientName);
                     std::this_thread::sleep_for(
                         std::chrono::milliseconds(interval));
                     //cout << is_running() << endl;
@@ -89,4 +90,5 @@ private:
     std::atomic<bool> _execute;
     std::thread _thd;
     SOCKET sock;
+    string ClientName;
 };
