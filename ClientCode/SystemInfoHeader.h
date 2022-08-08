@@ -76,7 +76,7 @@ public:
                     //cout << is_running() << endl;
                 }
             });
-        //_thd.detach();
+       // _thd.join();
     }
 
     bool is_running() const noexcept {

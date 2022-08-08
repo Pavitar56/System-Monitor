@@ -10,7 +10,7 @@ void DateTime(json& SystemInfo)
     time_t now = time(0);
     const char* dt = ctime(&now);
 
-    cout << "Todays Date is " << dt << endl;
+    //cout << "Todays Date is " << dt << endl;
     SystemInfo["Date and Time"] = dt;
 
 
@@ -29,10 +29,10 @@ void GetSystemName(json& SystemInfo)
     WSAStartup(MAKEWORD(2, 2), &wsaData);
     char name[MAX_PATH];
     int8_t temp = gethostname(name, MAX_PATH);   ///0=success else failure 
-    cout << temp << endl;
+    //cout << temp << endl;
     if (temp == 0)
     {
-        cout << name << endl;
+       // cout << name << endl;
 
         //adding to json
         SystemInfo["System Name"] = name;
@@ -65,9 +65,9 @@ void MemoryUsage(json& SystemInfo)
         return;
     }
 
-    cout << "Memory in use:" << mem.dwMemoryLoad << "%" << endl;
-    cout << "Total physical memory: " << mem.ullTotalPhys / 1024 << endl;
-    cout << "Free physical memory: " << mem.ullAvailPhys / 1024 << endl;
+    //cout << "Memory in use:" << mem.dwMemoryLoad << "%" << endl;
+   // cout << "Total physical memory: " << mem.ullTotalPhys / 1024 << endl;
+   // cout << "Free physical memory: " << mem.ullAvailPhys / 1024 << endl;
 
     //adding to json
 
@@ -121,7 +121,7 @@ void GetCpuUsePercentage(json& SystemInfo)
     //(total time-idle time)/total time = time occupied by cpu is the usage rate 
     float Cpu_Usage = float(100.0 * (kernel + user - idle) / (kernel + user));
 
-    cout << Cpu_Usage << endl;
+   // cout << Cpu_Usage << endl;
 
     //adding to json
     SystemInfo["Cpu_Usage(in%)"] = Cpu_Usage;
@@ -157,7 +157,7 @@ void DiskInfo(json& SystemInfo)
         int32_t i = 0;                                //counter for drives
         while (*SingleDrive)
         {
-            wprintf(L"%ls\n", SingleDrive);
+           // wprintf(L"%ls\n", SingleDrive);
             All_Drives.push_back(SingleDrive);
 
             //adding to json
@@ -197,9 +197,9 @@ void DiskInfo(json& SystemInfo)
             return;
         }
 
-        wprintf(L"Available space to caller: %I64u MB\n", freeCall / (1024 * 1024));
-        wprintf(L"Total space: %I64u MB\n", total / (1024 * 1024));
-        wprintf(L"Free space on drive: %I64u MB\n", free / (1024 * 1024));
+       // wprintf(L"Available space to caller: %I64u MB\n", freeCall / (1024 * 1024));
+       // wprintf(L"Total space: %I64u MB\n", total / (1024 * 1024));
+       // wprintf(L"Free space on drive: %I64u MB\n", free / (1024 * 1024));
 
         wstring temp(*iter);
         string CurrentDriveName(temp.begin(), temp.end());
@@ -234,7 +234,7 @@ void SystemIdleTime(json& SystemInfo)
     {
         uint64_t IdleTime_In_ms = GetTickCount64() - plii.dwTime;
 
-        cout << "Last activity  : " << IdleTime_In_ms << " (ms)" << endl;
+        //cout << "Last activity  : " << IdleTime_In_ms << " (ms)" << endl;
 
         //adding to json
         SystemInfo["System Idle Window(in sec)"] = IdleTime_In_ms / 1000;  //converting to sec
@@ -244,7 +244,7 @@ void SystemIdleTime(json& SystemInfo)
         cout << "GetLastInputInfo ERROR" << endl;
     }
 
-    cout << GetTickCount64() << " " << plii.dwTime << endl;
+   // cout << GetTickCount64() << " " << plii.dwTime << endl;
 
 }
 

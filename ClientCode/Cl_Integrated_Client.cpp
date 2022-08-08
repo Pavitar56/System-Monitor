@@ -79,119 +79,59 @@ int main()
 		WSACleanup();
 		return 0;
 	}
-	/*
-	else
-	{
-		string temp = "yo";
-		int sendResult = send(sock, temp.c_str(), temp.size() + 1, 0);
-		if (sendResult != SOCKET_ERROR)
-		{
-			// Wait for response
-			char buf2[4096];
-			ZeroMemory(buf2, 4096);
-			int bytesReceived = recv(sock, buf2, 4096, 0);
-			if (bytesReceived > 0)
-			{
-				// Echo response to console
-				cout << "SERVER> " << string(buf2, 0, bytesReceived) << endl;
-			}
-		}
-	}
-	*/
+	
+
 	// Do-while loop to send and receive data
 	char buf[4096];
-	string userInput="1234";
+	string userInput="";
 
-	do
+	
+	cout << ">";
+	getline(cin, userInput);
+	
+	if (userInput == "\\quit")
 	{
-		// Prompt the user for some text
-		/*
-		char wel[4096];
-		ZeroMemory(wel, 4096);
-		int welcome = recv(sock, wel, 4096, 0);
-		if (welcome != SOCKET_ERROR)
-		{
-			cout << wel << endl;
-		}
-		*/
-		/*
-		cout << "> ";
+		closesocket(sock);
+		WSACleanup();
+		return 0;
+	}
+
+	string ClientName = userInput;
+
+	CallBackTimer Periodic(sock, ClientName);
+	Periodic.start(20000, updater);
+
+	
+	do 
+	{
+		
 		getline(cin, userInput);
 
-		if (userInput.size() > 0)		// Make sure the user has typed in something
+		if (userInput == "\\quit")
 		{
-			// Send the text
-
-
-
-			int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
+			int sendResult = send(sock, userInput.c_str(), userInput.size() , 0);
 			if (sendResult != SOCKET_ERROR)
 			{
-				// Wait for response
+				//Wait for response
+				char buf[4096];
 				ZeroMemory(buf, 4096);
 				int bytesReceived = recv(sock, buf, 4096, 0);
 				if (bytesReceived > 0)
 				{
-					// Echo response to console
-					cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
+					//Echo response to console
+					cout << "SERVER>" << string(buf, 0, bytesReceived) << endl;
+
 				}
 			}
+
 		}
-		*/
-		cout << ">";
-		getline(cin, userInput);
-		/*
-		int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
-		if (sendResult == SOCKET_ERROR)
-		{
-			cout << "Unable to send client name" << endl;
-			return 0;
-		}
-		*/
-
-		string temp = userInput;
-
-		CallBackTimer Periodic(sock, temp);
-		Periodic.start(20000, updater);
-		while (true);
-		/*while (true)
-		{
-
-			string s = "";
-
-
-			//SystemInfo_JsonWriter();
-			json client_info;				//json object
-			std::ifstream i("pretty.json");	//
-			i >> client_info;
-			s = client_info.dump(4);		//converts into string (4 - retains indentation/readability)
-
-			if (s.size() > 0)
-			{
-				//Send the text
-				int sendResult = send(sock, s.c_str(), s.size() + 1, 0);
-				if (sendResult != SOCKET_ERROR)
-				{
-					//Wait for response
-					ZeroMemory(buf, 4096);
-					int bytesReceived = recv(sock, buf, 4096, 0);
-					if (bytesReceived > 0)
-					{
-						//Echo response to console
-						cout << "SERVER>" << string(buf, 0, bytesReceived) << endl;
-
-					}
-				}
-			}
-		}
-		*/
-
-		//	} while (userInput.size() > 0);
-	} while (false);
-
-	while (true);
+	
+	} while (userInput != "\\quit");
+		
+	
 	// Gracefully close down everything
 	closesocket(sock);
 	WSACleanup();
+
 	return 0;
 }

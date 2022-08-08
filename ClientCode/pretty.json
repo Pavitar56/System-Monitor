@@ -1,17 +1,17 @@
 {
-    "Cpu_Usage(in%)": 34.63541793823242,
-    "Date and Time": "Thu Aug  4 12:48:44 2022\n",
+    "Cpu_Usage(in%)": 10.15625,
+    "Date and Time": "Mon Aug  8 00:15:29 2022\n",
     "DiskInfo": {
         "C:\\": {
-            "Free Space(in MB)": 67808,
+            "Free Space(in MB)": 64120,
             "Total Space(in MB)": 228327
         },
         "E:\\": {
-            "Free Space(in MB)": 72050,
+            "Free Space(in MB)": 132976,
             "Total Space(in MB)": 499999
         },
         "F:\\": {
-            "Free Space(in MB)": 180043,
+            "Free Space(in MB)": 179443,
             "Total Space(in MB)": 453851
         },
         "TotalDrives": [
@@ -20,15 +20,15 @@
             "F:\\"
         ]
     },
-    "MachineName": "client1",
+    "MachineName": "Client123",
     "RamInfo": {
-        "Free(in KB)": 5236556,
+        "Free(in KB)": 5740628,
         "Total(in KB)": 16709092,
-        "Usage(in %)": 68
+        "Usage(in %)": 65
     },
-    "System Idle Window(in sec)": 0,
+    "System Idle Window(in sec)": 12,
     "System Name": "DESKTOP-2J4M4QG",
-    "TotalDiskFreeSpace(in MB)": 319901,
+    "TotalDiskFreeSpace(in MB)": 376539,
     "TotalDiskSpace(in MB)": 1182177,
     "Total_Num_Of_Drives": 3
 }
