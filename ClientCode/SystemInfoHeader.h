@@ -20,6 +20,9 @@
 using namespace std;
 using json = nlohmann::json;
 
+
+// these are all the functions needed to get System information
+
 void DateTime(json&);
 void GetSystemName(json&);
 void MemoryUsage(json&);
@@ -35,13 +38,14 @@ void SystemInfo_JsonWriter(string);
 #include <chrono>
 #include <future>
 #include <cstdio>
+#define SHUTDOWN -1
+#define SUCCESS 0
 
-
-
+//this class takes care of periodic function when to start when to stop ,over how mych interval to call everything
 class CallBackTimer
 {
 public:
-    CallBackTimer(SOCKET s,string Name)
+    CallBackTimer(SOCKET s,string Name)   //constructor
         :_execute(false)
     {
         sock = s;
@@ -61,22 +65,30 @@ public:
             _thd.join();
     }
 
-    void start(int interval, std::function<void(SOCKET,string)> func)
+    void start(int interval, std::function<int(SOCKET,string)> func)
     {
-        if (_execute.load(std::memory_order_acquire)) {
+        if (_execute.load(std::memory_order_acquire)) 
+        {
             stop();
         };
         _execute.store(true, std::memory_order_release);
         _thd = std::thread([this, interval, func]()
             {
-                while (_execute.load(std::memory_order_acquire)) {
-                    func(sock, ClientName);
+                while (_execute.load(std::memory_order_acquire))
+                {
+                    int code=func(sock, ClientName);                   //updater function sends the stop code only if serer is shut down to stop the thread
+                    if (code == SHUTDOWN)
+                    {
+                        _execute.store(false, std::memory_order_release);;
+                    }
+                    
                     std::this_thread::sleep_for(
                         std::chrono::milliseconds(interval));
+                    
                     //cout << is_running() << endl;
                 }
             });
-       // _thd.join();
+        _thd.detach();
     }
 
     bool is_running() const noexcept {
@@ -87,7 +99,7 @@ public:
     }
 
 private:
-    std::atomic<bool> _execute;
+    std::atomic<bool> _execute;  //created it atomic so that 2 threads cant access it at the same time
     std::thread _thd;
     SOCKET sock;
     string ClientName;

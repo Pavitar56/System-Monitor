@@ -163,7 +163,7 @@ void DiskInfo(json& SystemInfo)
             //adding to json
 
             wstring temp(SingleDrive);
-            string str(temp.begin(), temp.end());
+            string str(temp.begin(), temp.end());              
             // cout << typeid(str).name() << endl;
             SystemInfo["DiskInfo"]["TotalDrives"][i++] = str;
 
