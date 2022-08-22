@@ -104,3 +104,75 @@ private:
     SOCKET sock;
     string ClientName;
 };
+
+
+
+class ConfigrationSettings
+{
+
+    private:
+        string Filename;
+        string Path;
+        json data;
+
+    public:
+
+         int read(string Filename)
+         {
+            this->Filename = Filename;
+            this->Path = Filename;
+
+            try
+            {
+                std::ifstream f(this->Filename);
+                this->data = json::parse(f);
+                return SUCCESS;
+            }
+            catch (...)
+            {
+                cout << "Unable to find and parse Configuration file" << endl;
+                return SHUTDOWN;
+            }
+        }
+
+        string IP_getter()
+        {
+            try
+            {
+                return data["ip"];
+            }
+            catch (...)
+            {
+                cout << "Unable to find ip in Configuration file" << endl;
+                return "";
+            }
+        }
+
+        long long int Port_getter()
+        {
+            try
+            {
+                return data["port"];
+            }
+            catch (...)
+            {
+                cout << "Unable to find port number in Configuration file" << endl;
+                return SHUTDOWN;
+            }
+        }
+
+        long long int TimeInterval_getter()
+        {
+            try
+            {
+                return data["TimeInterval"];;
+            }
+            catch (...)
+            {
+                cout << "Unable to find TimeInterval in Configuration file" << endl;
+                return SHUTDOWN;
+            }
+
+        }
+
+};

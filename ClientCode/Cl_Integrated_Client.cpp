@@ -1,5 +1,5 @@
 
-#define TimeInterval 5000
+#define SettingsFileName "ConfigurationSettings.json"
 
 #define SHUTDOWN -1
 #define SUCCESS 0
@@ -73,8 +73,29 @@ int updater(SOCKET sock,string ClientName)
 
 int main()
 {
-	string ipAddress = "127.0.0.1";			// IP Address of the server
-	int port = 54000;						// Listening port # on the server
+
+	ConfigrationSettings Settings;        //class to read and get neccessary information from ConfigrationFile(present at source code only)
+	
+	int ErrorCode = Settings.read(SettingsFileName);
+
+	if (ErrorCode == SHUTDOWN)
+	{
+		return 0;
+	}
+
+	string ipAddress = Settings.IP_getter();			// IP Address of the server
+
+	if (ipAddress == "")                 //checking if ip was there in config file
+	{
+		return 0;
+	}
+
+	long long int port = Settings.Port_getter();						// Listening port # on the server
+
+	if (port == SHUTDOWN)                      // checking if port number was there in config file
+	{
+		return 0;
+	}
 
 	// Initializing WinSock and ensuring it is successful
 	WSAData data;
@@ -140,7 +161,8 @@ int main()
 	}
 	catch (...)
 	{
-		cerr << "Cannot connect to server." << endl;
+		cerr << "Cannot connect to server.Possible reasons :- Ip address or Port number is  wrong or server is down" << endl;
+		cerr << "Current ip address is "<<Settings.IP_getter()<<" and port number is "<<Settings.Port_getter() << endl;
 		try
 		{
 			int check = closesocket(sock);
@@ -224,12 +246,26 @@ int main()
 
 	if (userInput == "\\quit")
 	{
+		
 		closesocket(sock);
 		WSACleanup();
+		cout << "Cleaned resources" << endl;
 		return 0;
 	}
 
 	string ClientName = userInput;
+
+
+	long long int TimeInterval = Settings.TimeInterval_getter();
+
+	if (SHUTDOWN == TimeInterval)              //checking if timeinterval was there in config file
+	{
+		closesocket(sock);
+		WSACleanup();
+		cout << "Cleaned resources" << endl;
+		return 0;
+	}
+
 
 	CallBackTimer Periodic(sock, ClientName);         //object of class CallBacktimer with socket and client name created
 	Periodic.start(TimeInterval, updater);  //starts a single thread to send the system information fetched periodically over a time interval specified
