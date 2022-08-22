@@ -125,6 +125,11 @@ class ConfigrationSettings
             try
             {
                 std::ifstream f(this->Filename);
+                if (f.fail())          //CHECKS IF FILE EXISTS OR NOT
+                {
+                    throw SHUTDOWN;
+                }
+
                 this->data = json::parse(f);
                 return SUCCESS;
             }
