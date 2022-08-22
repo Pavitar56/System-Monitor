@@ -131,6 +131,7 @@ class ConfigrationSettings
                 }
 
                 this->data = json::parse(f);
+                cout << "Succesfully read config file" << endl;
                 return SUCCESS;
             }
             catch (...)
