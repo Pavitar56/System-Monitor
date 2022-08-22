@@ -106,7 +106,7 @@ private:
 };
 
 
-
+// class to read Configuration setting from file and give neccessary info
 class ConfigrationSettings
 {
 
