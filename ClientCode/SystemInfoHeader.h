@@ -158,11 +158,23 @@ class ConfigrationSettings
         {
             try
             {
-                return data["port"];
+              
+                long long int p = data["port"];
+
+                if (p < 0)
+                {
+                    throw p;
+                }
+
+            }
+            catch (long long int temp)
+            {
+                cout << "Invalid port number " << temp << " Entered in config file" << endl;
+                return SHUTDOWN;
             }
             catch (...)
             {
-                cout << "Unable to find port number in Configuration file" << endl;
+                cout << "Unable to find correct port number in Configuration file." << endl;
                 return SHUTDOWN;
             }
         }
@@ -171,11 +183,24 @@ class ConfigrationSettings
         {
             try
             {
-                return data["TimeInterval"];;
+
+               long long int time = data["TimeInterval"];
+
+               if (time < 0)
+               {
+                   throw time;
+               }
+
+            }
+            catch (long long int temp)
+            {
+                cout << "Invalid TimeInterval " << temp << " Entered in config file" << endl;
+                return SHUTDOWN;
+
             }
             catch (...)
             {
-                cout << "Unable to find TimeInterval in Configuration file" << endl;
+                cout << "Unable to find correct TimeInterval in Configuration file" << endl;
                 return SHUTDOWN;
             }
 
