@@ -80,6 +80,7 @@ int main()
 
 	if (ErrorCode == SHUTDOWN)
 	{
+		system("pause");
 		return 0;
 	}
 
@@ -87,6 +88,7 @@ int main()
 
 	if (ipAddress == "")                 //checking if ip was there in config file
 	{
+		system("pause");
 		return 0;
 	}
 
@@ -94,6 +96,7 @@ int main()
 
 	if (port == SHUTDOWN)                      // checking if port number was there in config file
 	{
+		system("pause");
 		return 0;
 	}
 
@@ -111,6 +114,7 @@ int main()
 	catch (...)
 	{
 		cerr << "Cannot Initialize winsock. Quitting..." << endl;
+		system("pause");
 		return 0;
 	}
 
@@ -188,6 +192,7 @@ int main()
 		{
 			cerr << "Unable to release and clean up engaged resources." << endl;
 		}
+		system("pause");
 		return 0;
 	}
 
@@ -212,6 +217,7 @@ int main()
 			closesocket(sock);
 			WSACleanup();
 			cout << "All resources freed" << endl;
+			system("pause");
 			return 0;
 		}
 
@@ -238,6 +244,7 @@ int main()
 		else
 		{
 			cout << "Unable to send Client Name to Server.Server is Disconnected" << endl;   //this means server is shut downed
+			system("pause");
 			return 0;
 		}
 
@@ -250,6 +257,7 @@ int main()
 		closesocket(sock);
 		WSACleanup();
 		cout << "Cleaned resources" << endl;
+		system("pause");
 		return 0;
 	}
 
@@ -263,6 +271,7 @@ int main()
 		closesocket(sock);
 		WSACleanup();
 		cout << "Cleaned resources" << endl;
+		system("pause");
 		return 0;
 	}
 
