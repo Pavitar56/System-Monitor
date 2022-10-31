@@ -1,5 +1,3 @@
-# Team1_iSysMonJul2022
-# UI Code
 
 ## System Monitor
 A central monitoring system built using basic client-server model to collect system information from multiple nodes over a network. The server side receives the data from the client periodically.
@@ -87,11 +85,3 @@ A central monitoring system built using basic client-server model to collect sys
 
 #### Also note that in order to run Server from UI itself u need to change ServerApplicationPath macro in UI to path where u have saved ServerApplication otherwise start server from console itself.
 
-### PROJECT CONTRIBUTORS:-
-#### System Interaction and UI Team
-* Pavitar Goyal
-#### Socket Programming Team
-* Esha Sali
-* Ishika Bhatt
-#### Database Team
-* Nizamuddin Syed
