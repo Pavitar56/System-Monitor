@@ -30,11 +30,3 @@ A central monitoring system built using basic client-server model to collect sys
 #### The client in our case sends the above mentioned data every 20 seconds to the server once connected and after inserting the unique User Name.
 #### The client must insert unique name inorder to get started (the name inserted must not be present among the online client ).
 
-### PROJECT CONTRIBUTORS:-
-#### System Interaction and UI Team
-* Pavitar Goyal
-#### Socket Programming Team
-* Esha Sali
-* Ishika Bhatt
-#### Database Team
-* Nizamuddin Syed
