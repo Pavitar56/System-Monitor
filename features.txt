@@ -1,0 +1,66 @@
+Ui features
+
+1)To get to the dashboard of Ui one needs to authenticate themselves though login form.
+only users with correct username and password will be allowed to acces server ui(write now it is harded to be UserName=Pavitar AND PASS=1234
+
+2)Dashboard has variety of features as :-
+	2.1 start server button starts the server,stop button stops the server
+	2.2 refresh button updates the combobx list of client name so it is dynamic real time
+	2.3 dashboard can display latest info of selected client name
+	2.4 or user can access last n entries data of selected cleint which is displayed in a very beautiful charts and tables
+	2.5 there is a specail query box through which user can make certain queries like max ram,min ram max cpu usage,min cpu usage etc
+		in the last n entries .it displays all client names related to that query(handles multiple client with same usage too)
+	
+3) everything /every button wheather in login form or dashboard or cleintinfo form has exception handling to give smooth user friendly expierence such as:-
+	3.1 if user tries to start server that is already running it displays correct message as"server is already running" and prevent suser from running another instance of same server
+	3.2 if user tries to stop server that doesnot exists then correct message "start server before killing it" is displayed
+	3.3 similarly all comboxes needs to be slected with proper values to execute related queries if not then
+		message such as select query or slect client name or select correct number of items" are displayed.
+
+4) proper closing of connection with database is done with each query so that resources are freed making Ui less bulky.
+
+
+
+
+
+
+
+Client features:-
+
+1)Client first need to send the name with which that clients needs to be associated with.Only if name provided is unique in the map of "connected clients"
+	then only server allows the client to entry otherwise it asks for name again.
+
+2)system information dat is send in the form "json" to server for easier accsing of info through key value pairs
+
+3) data sending is done periodically automatically in a single thread which is detached so that control is back to main
+
+4)Client can disconnect from server anytime by typing '\quit' i console.This will ssafley disconnect from server and clean all related resources to it too.it stops the data sending periodic function too.
+
+5)Exception handling is done to handle abrupt cases like server was disconnected,cleint was unable to send data or recive data.Each exceptio displays proper message which is user freindly and easy to understand.
+
+
+
+
+
+
+Server features:-
+
+1)Server can handle multiple clients at the same time in a 1 single thread only by use of select statement and master socket.So no use of multithreading.
+
+2)Server is connected to database to update neccessary information like data recieved from cleint ,System information,Connectin status etc
+
+3)Server keeps track of all connected cleints so no 2 cleints with same username can connect at same time
+
+4)If a client gets disconnected then all the resources related to that client are cleaned up and is removed from master socket so that it does wait for that cleint inforamtion.
+
+5)Everytime a new connection is added or disconnected proper message is displayed.
+
+6)DATA upationmessage is also disaplyed for connected client.so everytime data gets updated it dispalys data pdated fro that particlualr client in console
+
+7)server has echo functionality too so server can echo the data recieved from cleint to that particular cleint
+
+8)u can shut down server by typing \quit. this will clean all resources and also give a shutdown message to all connected users
+
+9) everything has exception handling to dispaly proper message in case a  exception comes up  eg abrupt disconnection
+
+10)Resources cleanup are taken care of whenever client disconnects.
