@@ -35,11 +35,3 @@ A central monitoring system built using basic client-server model to collect sys
 
 
 
-### PROJECT CONTRIBUTORS:-
-#### System Interaction and UI Team
-* Pavitar Goyal
-#### Socket Programming Team
-* Esha Sali
-* Ishika Bhatt
-#### Database Team
-* Nizamuddin Syed
